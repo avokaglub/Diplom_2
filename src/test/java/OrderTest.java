@@ -1,5 +1,4 @@
 import ingredient.Ingredient;
-import ingredient.IngredientClient;
 import io.qameta.allure.Description;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
@@ -29,7 +28,7 @@ public class OrderTest extends CommonTest {
     @DisplayName("Тест оформления заказа без ингредиентов авторизованным пользователем")
     @Description("При оформлении заказа без ингредиентов возвращается сообщение: Ingredient ids must be provided")
     public void newOrderWithLoginWithoutIngredientsTest() {
-        String userAccessToken = userLoginAndGetAccessToken(User.getUserToSuccessLogin());
+        String userAccessToken = userLoginAndGetAccessToken(User.getUserWitchExist());
         Order order = new Order();
         Response orderResponse = OrderClient.sendPostRequestToOrdersWithToken(order, userAccessToken);
         orderResponse.then().assertThat().statusCode(400);
@@ -54,7 +53,7 @@ public class OrderTest extends CommonTest {
     public void newOrderWithInvalidHashTest() {
         Order order = new Order();
         order.addIngredient(Ingredient.getIngredientWithInvalidHash());
-        Response orderResponse = OrderClient.sendPostRequestToOrdersWithToken(order, userLoginAndGetAccessToken(User.getUserToSuccessLogin()));
+        Response orderResponse = OrderClient.sendPostRequestToOrdersWithToken(order, userLoginAndGetAccessToken(User.getUserWitchExist()));
         orderResponse.then().assertThat().statusCode(500);
         Assert.assertTrue(orderResponse.then().extract().htmlPath().getString("html.body.pre").contains("Internal Server Error"));
     }
@@ -90,5 +89,4 @@ public class OrderTest extends CommonTest {
         if (createdOrderNumber != null)
             OrderClient.sendCancelRequestToOrders(createdOrderNumber);
     }
-
 }

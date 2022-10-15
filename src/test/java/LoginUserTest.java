@@ -16,6 +16,7 @@ import static org.hamcrest.Matchers.notNullValue;
 @Feature("Авторизация пользователя")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginUserTest extends CommonTest {
+    public static UserToken userAccessToken;
     public static UserToken userRefreshToken;
 
     @Test
@@ -28,6 +29,7 @@ public class LoginUserTest extends CommonTest {
                 .assertThat().body("success", equalTo(true))
                 .assertThat().body("accessToken", notNullValue())
                 .assertThat().body("refreshToken", notNullValue());
+        userAccessToken = new UserToken(userResponse.then().extract().body().path("accessToken"));
         userRefreshToken = new UserToken(userResponse.then().extract().body().path("refreshToken"));
     }
 
