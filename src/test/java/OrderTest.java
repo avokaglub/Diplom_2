@@ -27,11 +27,22 @@ public class OrderTest extends CommonTest {
 
     @Test
     @DisplayName("Тест оформления заказа без ингредиентов авторизованным пользователем")
-    @Description("Пи оформлении заказа без ингредиентов возвращается сообщение: Ingredient ids must be provided")
+    @Description("При оформлении заказа без ингредиентов возвращается сообщение: Ingredient ids must be provided")
     public void newOrderWithLoginWithoutIngredientsTest() {
         String userAccessToken = userLoginAndGetAccessToken(User.getUserToSuccessLogin());
         Order order = new Order();
         Response orderResponse = OrderClient.sendPostRequestToOrdersWithToken(order, userAccessToken);
+        orderResponse.then().assertThat().statusCode(400);
+        orderResponse.then().assertThat().body("success", equalTo(false));
+        orderResponse.then().assertThat().body("message", equalTo("Ingredient ids must be provided"));
+    }
+
+    @Test
+    @DisplayName("Тест оформления заказа без ингредиентов неавторизованным пользователем")
+    @Description("")
+    public void newOrderWithoutLoginWithoutIngredientsTest() {
+        Order order = new Order();
+        Response orderResponse = OrderClient.sendPostRequestToOrders(order);
         orderResponse.then().assertThat().statusCode(400);
         orderResponse.then().assertThat().body("success", equalTo(false));
         orderResponse.then().assertThat().body("message", equalTo("Ingredient ids must be provided"));
