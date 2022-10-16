@@ -22,7 +22,7 @@ public class UpdateUserTest extends CommonTest {
         @DisplayName("Обновление информации о пользователе после успешной авторизации")
         @Description("Обновление информации о пользователе после успешной авторизации")
         public void userUpdateWithLoginTest() {
-                Response userLoginResponse = UserClient.sendPostRequestToUserLogin(User.getUserWitchExist());
+                Response userLoginResponse = UserClient.sendPostRequestToUserLogin(User.getUserToSuccessLogin());
                 System.out.print(userLoginResponse.prettyPrint());
                 userLoginResponse.then()
                         .assertThat().statusCode(200)
@@ -39,10 +39,6 @@ public class UpdateUserTest extends CommonTest {
                 userResponse.then().assertThat().body("success", equalTo(true));
                 userResponse.then().assertThat().body("user.email", equalTo(userInfo.getEmail()));
                 userResponse.then().assertThat().body("user.name", equalTo(userInfo.getName()));
-
-                System.out.print("\n===============================\n");
-                System.out.print(userInfo);
-                System.out.print("\n===============================\n");
         }
 
         @Test
@@ -55,10 +51,6 @@ public class UpdateUserTest extends CommonTest {
                 userResponse.then().assertThat().statusCode(401);
                 userResponse.then().assertThat().body("success", equalTo(false));
                 userResponse.then().assertThat().body("message", equalTo("You should be authorised"));
-
-                System.out.print("\n===============================\n");
-                System.out.print(userInfo);
-                System.out.print("\n===============================\n");
         }
 
 }

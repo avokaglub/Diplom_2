@@ -6,6 +6,7 @@ import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import order.Order;
 import order.OrderClient;
+import order.OrdersList;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
@@ -14,7 +15,9 @@ import org.junit.runners.MethodSorters;
 import user.User;
 import user.UserClient;
 
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -38,7 +41,7 @@ public class OrderTest extends CommonTest {
 
     @Test
     @DisplayName("Тест оформления заказа без ингредиентов неавторизованным пользователем")
-    @Description("")
+    @Description("При оформлении заказа без ингредиентов неавторизованным пользователем возвращается сообщение: Ingredient ids must be provided")
     public void newOrderWithoutLoginWithoutIngredientsTest() {
         Order order = new Order();
         Response orderResponse = OrderClient.sendPostRequestToOrders(order);
@@ -68,13 +71,37 @@ public class OrderTest extends CommonTest {
             при сокет-соединении с персональной лентой заказов нужно предоставить серверу авторизационный токен.
         */
 
-        String userAccessToken = userLoginAndGetAccessToken(User.getUserToSuccessLogin());
+        String userAccessToken = userLoginAndGetAccessToken(User.getUserWitchExist());
         Response orderResponse = OrderClient.sendGetRequestToOrdersWithToken(userAccessToken);
         orderResponse.then().assertThat().statusCode(200);
         orderResponse.then().assertThat().body("success", equalTo(true));
 
         List<Order> ordersList = orderResponse.then().extract().body().path("orders");
         Assert.assertTrue(ordersList.size() <= 50);
+    }
+
+    @Test
+    @DisplayName("Тест получения заказов")
+    @Description("При подключении бэкенд приложения вернёт максимум 50 последних заказов. Они сортируются по времени обновления.")
+    public void getAllOrdersListTest() {
+        String userAccessToken = userLoginAndGetAccessToken(User.getUserWitchExist());
+        Response getAllOrdersResponse = OrderClient.sendGetRequestToOrdersAll(userAccessToken);
+        getAllOrdersResponse.then().assertThat().statusCode(200);
+        getAllOrdersResponse.then().assertThat().body("success", equalTo(true));
+        Assert.assertTrue((Integer) getAllOrdersResponse.then().extract().body().path("total") > 0);
+        Assert.assertTrue((Integer) getAllOrdersResponse.then().extract().body().path("totalToday") >= 0);
+
+        OrdersList returnedOrders = getAllOrdersResponse.getBody().as(OrdersList.class);
+        ArrayList<Order> orders = returnedOrders.getOrders();
+        ArrayList<Order> ordersOrdered = (ArrayList<Order>) orders.clone();
+        ordersOrdered.sort(ORDER_COMPARATOR);
+        Assert.assertTrue(ordersOrdered.equals(orders));
+    }
+
+    @After
+    public void tearDown(){
+        if (createdOrderNumber != null)
+            OrderClient.sendCancelRequestToOrders(createdOrderNumber);
     }
 
     private String userLoginAndGetAccessToken(User userToLogin) {
@@ -84,9 +111,19 @@ public class OrderTest extends CommonTest {
         return userResponse.then().extract().body().path("accessToken");
     }
 
-    @After
-    public void tearDown(){
-        if (createdOrderNumber != null)
-            OrderClient.sendCancelRequestToOrders(createdOrderNumber);
-    }
+    private static Comparator<Order> ORDER_COMPARATOR = new Comparator<Order>() {
+        @Override
+        public int compare(Order o1, Order o2) {
+            try {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+                Date date1 = formatter.parse(o1.getUpdatedAt());
+                Date date2 = formatter.parse(o2.getUpdatedAt());
+
+                return date2.compareTo(date1);
+            } catch (ParseException e) {
+                System.out.println(e);
+                throw new RuntimeException(e);
+            }
+        }
+    };
 }

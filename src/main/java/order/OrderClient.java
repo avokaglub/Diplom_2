@@ -16,8 +16,8 @@ public class OrderClient extends BaseClient {
     }
 
     @Step("Send GET request to /api/orders/all")
-    public static Response sendGetRequestToOrdersAll(){
-        return getSpec().get("/api/orders/all");
+    public static Response sendGetRequestToOrdersAll(String token){
+        return getSpec().header("Authorization", token).get("/api/orders/all");
     }
 
     @Step("Send GET request to /api/orders")

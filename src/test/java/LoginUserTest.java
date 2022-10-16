@@ -54,6 +54,26 @@ public class LoginUserTest extends CommonTest {
     }
 
     @Test
+    @DisplayName("Тест авторизации пользователя с неверным логином")
+    @Description("Если логин или пароль неверные или нет одного из полей, вернётся код ответа 401 Unauthorized")
+    public void userWithInvalidLoginAuthTest() {
+        UserClient.sendPostRequestToUserLogin(User.getUserWithInvalidLogin()).then()
+                .assertThat().statusCode(401)
+                .assertThat().body("success", equalTo(false))
+                .assertThat().body("message", equalTo("email or password are incorrect"));
+    }
+
+    @Test
+    @DisplayName("Тест авторизации пользователя с неверным паролем")
+    @Description("Если логин или пароль неверные или нет одного из полей, вернётся код ответа 401 Unauthorized")
+    public void userWithInvalidPasswordAuthTest() {
+        UserClient.sendPostRequestToUserLogin(User.getUserWithInvalidPassword()).then()
+                .assertThat().statusCode(401)
+                .assertThat().body("success", equalTo(false))
+                .assertThat().body("message", equalTo("email or password are incorrect"));
+    }
+
+    @Test
     @DisplayName("Тест выхода из системы")
     @Description("После успешного выхода из системы в ответе сервера возвращается статус success: true и сообщение 'Successful logout'")
     public void userLogoutTest() {

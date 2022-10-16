@@ -11,26 +11,12 @@ public class User {
         this.password = password;
         this.name = name;
     }
-/*
-    public User(String email, String name) {
-        this.email = email;
-        this.name = name;
-        this.password = null;
-    }
-*/
+
     public static User getRandomUser() {
         return new User(
                 RandomStringUtils.randomAlphabetic(5, 10).toLowerCase() + "@example.com",
                 "qwerty",
                 "Maria"
-        );
-    }
-
-    public static User getUserToRegistration() {
-        return new User(
-                "avokaglub@example.com",
-                "qwerty",
-                "avokaglub"
         );
     }
 
@@ -54,7 +40,7 @@ public class User {
         return new User(
                 "avokaglub@example.com",
                 "qwerty",
-                RandomStringUtils.randomAlphabetic(7).toLowerCase()
+                "Maria"
         );
     }
 
@@ -93,7 +79,7 @@ public class User {
     public static User getUserWithInvalidPassword() {
         return new User(
                 "avokaglub@example.com",
-                "qwerty",
+                "qwertyui",
                 "Maria"
         );
     }
