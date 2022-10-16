@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import user.User;
 import user.UserClient;
+import user.UserToken;
 
 import static org.hamcrest.Matchers.equalTo;
 

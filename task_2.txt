@@ -10,7 +10,7 @@
 	создать пользователя, который уже зарегистрирован; // existUserRegistrationTest
 	создать пользователя и не заполнить одно из обязательных полей. // nullPasswordUserRegistrationTest, nullLoginUserRegistrationTest
 
-Логин пользователя: // UserLoginTest
+Логин пользователя: // LoginUserTest
 	логин под существующим пользователем, // userAuthTest
 	логин с неверным логином и паролем. // userWithEmptyLoginAuthTest, userWithEmptyPasswordAuthTest
 // userLogoutTest
