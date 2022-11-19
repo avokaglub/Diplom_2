@@ -35,6 +35,9 @@
         <aspectj.version>1.9.9.1</aspectj.version>
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit4 -->
         <allure.version>2.20.1</allure.version>
+        <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-maven -->
+        <allure-maven.version>2.12.0</allure-maven.version>
+        <allure-reportVersion>2.15.0</allure-reportVersion>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
         <slf4j.version>2.0.4</slf4j.version>
@@ -134,9 +137,9 @@
             <plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
-                <version>2.11.2</version>
+                <version>${allure-maven.version}</version>
                 <configuration>
-                    <reportVersion>2.15.0</reportVersion>
+                    <reportVersion>${allure-reportVersion}</reportVersion>
                 </configuration>
             </plugin>
         </plugins>
