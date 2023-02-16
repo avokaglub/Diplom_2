@@ -22,25 +22,25 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-        <rest-assured.version>5.2.0</rest-assured.version>
+        <rest-assured.version>5.3.0</rest-assured.version>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-        <gson.version>2.10</gson.version>
+        <gson.version>2.10.1</gson.version>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <jackson-databind.version>2.14.0</jackson-databind.version>
+        <jackson-databind.version>2.14.2</jackson-databind.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
-        <aspectj.version>1.9.9.1</aspectj.version>
+        <aspectj.version>1.9.19</aspectj.version>
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit4 -->
-        <allure.version>2.20.1</allure.version>
+        <allure.version>2.21.0</allure.version>
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-maven -->
         <allure-maven.version>2.12.0</allure-maven.version>
         <allure-reportVersion>2.15.0</allure-reportVersion>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-        <slf4j.version>2.0.4</slf4j.version>
+        <slf4j.version>2.0.6</slf4j.version>
     </properties>
 
     <dependencies>
