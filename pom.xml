@@ -22,25 +22,25 @@
         <!-- https://mvnrepository.com/artifact/junit/junit -->
         <junit.version>4.13.2</junit.version>
         <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
-        <rest-assured.version>5.3.0</rest-assured.version>
+        <rest-assured.version>5.5.0</rest-assured.version>
         <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
         <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-        <gson.version>2.10.1</gson.version>
+        <gson.version>2.11.0</gson.version>
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-        <jackson-databind.version>2.15.0</jackson-databind.version>
+        <jackson-databind.version>2.17.2</jackson-databind.version>
         <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
-        <maven-surefire-plugin.version>3.0.0</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.5.0</maven-surefire-plugin.version>
         <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
-        <aspectj.version>1.9.19</aspectj.version>
+        <aspectj.version>1.9.22.1</aspectj.version>
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-junit4 -->
-        <allure.version>2.22.0</allure.version>
+        <allure.version>2.29.0</allure.version>
         <!-- https://mvnrepository.com/artifact/io.qameta.allure/allure-maven -->
-        <allure-maven.version>2.12.0</allure-maven.version>
+        <allure-maven.version>2.14.0</allure-maven.version>
         <allure-reportVersion>2.15.0</allure-reportVersion>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-        <slf4j.version>2.0.7</slf4j.version>
+        <slf4j.version>	2.0.16</slf4j.version>
     </properties>
 
     <dependencies>
